@@ -1,9 +1,13 @@
+require('dotenv').config();
+
+const dbpw = process.env.DBPASSWORD;
+
 module.exports = {
     client: "mysql2",
     connection: {
         host: "localhost",
         database: "petcare",
         user: "root",
-        password: "123456",
+        password: `${dbpw}`,
     },
 };

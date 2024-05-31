@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { API_KEY } from '@env';
 
 const SignUpScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -7,7 +8,7 @@ const SignUpScreen = ({ navigation }) => {
 
   const handleSignUp = async () => {
     try {
-      const response = await fetch('http://192.168.1.2:3000/login/register', { // Update with your local IP and port
+      const response = await fetch(`${API_KEY}/login/register`, { // Update with your local IP and port
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { AuthContext } from './components/AuthContext';
+import { API_KEY } from '@env';
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -9,7 +10,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://192.168.1.2:3000/login', { // Update with your local IP and port
+      const response = await fetch(`${API_KEY}/login`, { // Update with your local IP and port
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
