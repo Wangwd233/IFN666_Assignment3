@@ -12,6 +12,7 @@ const knex = require("knex")(db);
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
+var petsRouter = require('./routes/pets');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
+app.use('/pets', petsRouter);
 app.use("/version", (req, res) => {
   req.db.raw("SELECT VERSION()").then((version) => res.send(version[0][0]))
 });

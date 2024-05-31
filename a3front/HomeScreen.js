@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import ServiceButton from './components/ServiceButton';
 import { SettingsContext } from './components/SettingsContext';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   //text setting for fontsize and color
   const { fontSize, fontColor, backgroundColor } = useContext(SettingsContext);
 
@@ -13,39 +13,21 @@ const HomeScreen = () => {
         <Text style={[styles.header, { fontSize, color: fontColor }]}>Select a service</Text>
         <ServiceButton 
           iconName="luggage" 
-          title="Boarding" 
-          description="in the sitter's home" 
-          onPress={() => alert('Boarding')} 
+          title="My Pets" 
+          description="View all my pets" 
+          onPress={() => navigation.navigate('PetsScreen')} 
         />
         <ServiceButton 
-          iconName="home" 
-          title="House Sitting" 
-          description="in your home" 
-          onPress={() => alert('House Sitting')} 
+          iconName="add" 
+          title="Add Pet" 
+          description="Add a new pet" 
+          onPress={() => navigation.navigate('AddPetScreen')} 
         />
         <ServiceButton 
-          iconName="pets" 
-          title="Drop-In Visits" 
-          description="visits in your home" 
-          onPress={() => alert('Drop-In Visits')} 
-        />
-        <ServiceButton 
-          iconName="event" 
-          title="Doggy Day Care" 
-          description="in the sitter's home" 
-          onPress={() => alert('Doggy Day Care')} 
-        />
-        <ServiceButton 
-          iconName="directions-walk" 
-          title="Dog Walking" 
-          description="in your neighborhood" 
-          onPress={() => alert('Dog Walking')} 
-        />
-        <ServiceButton 
-          iconName="computer" 
-          title="Dog Training" 
-          description="video sessions through GoodPup" 
-          onPress={() => alert('Dog Training')} 
+          iconName="event"
+          title="Feed Pet" 
+          description="Set feeding time for pets" 
+          onPress={() => navigation.navigate('FeedPetScreen')} 
         />
       </View>
     </ScrollView>

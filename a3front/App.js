@@ -10,6 +10,10 @@ import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen'; 
 import AboutScreen from './AboutScreen';
 import SettingsScreen from './SettingsScreen';
+import PetsScreen from './PetsScreen';
+import AddPetScreen from './AddPetScreen';
+import UpdatePetScreen from './UpdatePetScreen';
+import FeedPetScreen from './FeedPetScreen';
 import { SettingsProvider } from './components/SettingsContext';
 import { AuthContext, AuthProvider } from './components/AuthContext';
 
@@ -139,6 +143,10 @@ function AppContent() {
             {isLoggedIn ? (
                   <>
                     <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }} />
+                    <Stack.Screen name="PetsScreen" component={PetsScreen} options={{ headerShown: true }} />
+                    <Stack.Screen name="AddPetScreen" component={AddPetScreen} options={{ headerShown: true }} />
+                    <Stack.Screen name="UpdatePetScreen" component={UpdatePetScreen} options={{ headerShown: true }} />
+                    <Stack.Screen name="FeedPetScreen" component={FeedPetScreen} options={{ headerShown: true }} />
                   </>
                 ) : (
                   <>
