@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { AuthContext } from './components/AuthContext';
 import { API_KEY } from '@env';
-import { SettingsProvider } from './components/SettingsContext';
+import { SettingsContext } from './components/SettingsContext';
 
 const PetsScreen = ({ navigation }) => {
   const { username } = useContext(AuthContext); // Use username (email) from AuthContext
+  const { fontSize, fontColor, backgroundColor } = useContext(SettingsContext);
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,23 +27,21 @@ const PetsScreen = ({ navigation }) => {
   }, [username]);
 
   const renderItem = ({ item }) => (
-    <SettingsProvider>
-    <TouchableOpacity
-      onPress={() => navigation.navigate('UpdatePetScreen', { pet: item })}
-    >
-        <View style={styles.row}>
-        <Text style={styles.cell}>{item.petname}</Text>
-        <Text style={styles.cell}>{item.category}</Text>
-        <Text style={styles.cell}>{item.age}</Text>
-        <Text style={styles.cell}>{item.weight}</Text>
-        </View>
-    </TouchableOpacity>
-    </SettingsProvider>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('UpdatePetScreen', { pet: item })}
+      >
+          <View style={styles.row}>
+          <Text style={[styles.cell, { fontSize, color: fontColor }]}>{item.petname}</Text>
+          <Text style={[styles.cell, { fontSize, color: fontColor }]}>{item.category}</Text>
+          <Text style={[styles.cell, { fontSize, color: fontColor }]}>{item.age}</Text>
+          <Text style={[styles.cell, { fontSize, color: fontColor }]}>{item.weight}</Text>
+          </View>
+      </TouchableOpacity>
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>My Pets</Text>
+    <View style={[styles.container, { backgroundColor }]}>
+      <Text style={[styles.header, { fontSize, color: fontColor }]}>My Pets</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
@@ -52,10 +51,10 @@ const PetsScreen = ({ navigation }) => {
           renderItem={renderItem}
           ListHeaderComponent={() => (
             <View style={styles.row}>
-              <Text style={styles.headerCell}>Name</Text>
-              <Text style={styles.headerCell}>Category</Text>
-              <Text style={styles.headerCell}>Age</Text>
-              <Text style={styles.headerCell}>Weight</Text>
+              <Text style={[styles.headerCell, { color: fontColor }]}>Name</Text>
+              <Text style={[styles.headerCell, { color: fontColor }]}>Category</Text>
+              <Text style={[styles.headerCell, { color: fontColor }]}>Age</Text>
+              <Text style={[styles.headerCell, { color: fontColor }]}>Weight</Text>
             </View>
           )}
         />

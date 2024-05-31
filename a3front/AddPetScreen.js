@@ -43,18 +43,21 @@ const AddPetScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Add a New Pet</Text>
+      <Text style={styles.label}>Pet Name</Text>
       <TextInput
         style={styles.input}
         placeholder="Pet Name"
         value={petname}
         onChangeText={setPetname}
       />
+      <Text style={styles.label}>Category</Text>
       <TextInput
         style={styles.input}
         placeholder="Category"
         value={category}
         onChangeText={setCategory}
       />
+      <Text style={styles.label}>Age</Text>
       <TextInput
         style={styles.input}
         placeholder="Age"
@@ -62,6 +65,7 @@ const AddPetScreen = ({ navigation }) => {
         onChangeText={setAge}
         keyboardType="numeric"
       />
+      <Text style={styles.label}>Weight(kg)</Text>
       <TextInput
         style={styles.input}
         placeholder="Weight"
@@ -93,6 +97,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     padding: 8,
+  },
+  label: {
+    alignSelf: 'flex-start',
+    fontSize: 16,
+    marginBottom: 5,
   },
 });
 

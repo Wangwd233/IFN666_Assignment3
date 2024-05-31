@@ -89,6 +89,14 @@ router.put('/:id', async (req, res) => {
     if (weight !== undefined && !isValidDouble(weight)) {
       return res.status(400).json({ error: 'Weight must be a double' });
     }
+
+    const updateFields = {};
+    if (petname !== undefined) updateFields.petname = petname;
+    if (category !== undefined) updateFields.category = category;
+    if (owner !== undefined) updateFields.owner = owner;
+    if (age !== undefined) updateFields.age = Number(age);
+    if (weight !== undefined) updateFields.weight = Number(weight);
+    if (needfeeding !== undefined) updateFields.needfeeding = new Date(needfeeding);
   
     try {
       const updated = await req.db('pets')
@@ -112,8 +120,33 @@ router.put('/:id', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+// route to update only the needfeeding field
+router.put('/:id/needfeeding', async (req, res) => {
+    const { id } = req.params;
+    const { needfeeding } = req.body;
   
-  // Route to delete a pet
+    if (!needfeeding) {
+      return res.status(400).json({ error: 'Needfeeding datetime is required' });
+    }
+  
+    try {
+      const updated = await req.db('pets')
+        .where({ id })
+        .update({ needfeeding: new Date(needfeeding) });
+  
+      if (updated) {
+        res.json({ message: 'Needfeeding time updated successfully' });
+      } else {
+        res.status(404).json({ error: 'Pet not found' });
+      }
+    } catch (error) {
+      console.error('Error updating needfeeding time:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+});
+  
+// Route to delete a pet
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
   
@@ -132,5 +165,26 @@ router.delete('/:id', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+// Route to delete the needfeeding field
+router.delete('/:id/needfeeding', async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const updated = await req.db('pets')
+        .where({ id })
+        .update({ needfeeding: null });
+  
+      if (updated) {
+        res.json({ message: 'Needfeeding time dismissed successfully' });
+      } else {
+        res.status(404).json({ error: 'Pet not found' });
+      }
+    } catch (error) {
+      console.error('Error dismissing needfeeding time:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+});
+  
 
 module.exports = router;
