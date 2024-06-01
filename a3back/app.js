@@ -7,6 +7,8 @@ var cors = require('cors');
 
 const db = require("./db");
 const knex = require("knex")(db);
+const swaggerUI = require("swagger-ui-express");
+const swaggerDocument = require("./docs/openapi.json");
 
 
 var indexRouter = require('./routes/index');
@@ -26,6 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use((req, res, next) => {
   req.db = knex; 
   next();
